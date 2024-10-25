@@ -2,7 +2,6 @@ $(document).ready(() => {
   let productosSeleccionados = [];
   let datosProductos = {};
 
-  // Cargar el archivo JSON
   fetch('productos.json')
     .then(response => response.json())
     .then(data => {
@@ -10,13 +9,11 @@ $(document).ready(() => {
     })
     .catch(error => console.error('Error al cargar el archivo JSON:', error));
 
-  // Cargar subcategorías al seleccionar una categoría
   $('.menu-btn').click(function() {
     let categoria = $(this).data('category');
     cargarSubCategorias(categoria);
   });
 
-  // Función para cargar subcategorías (del JSON)
   function cargarSubCategorias(categoria) {
     $('.sub-menu').empty();
     
@@ -35,7 +32,6 @@ $(document).ready(() => {
     });
   }
 
-  // Cargar productos al seleccionar una subcategoría
   $(document).on('click', '.sub-menu-btn', function() {
     let subcategoria = $(this).data('subcategoria');
     cargarProductos(subcategoria);
@@ -43,7 +39,7 @@ $(document).ready(() => {
 
   function cargarProductos(subcategoria) {
     $('.product-list').empty();
-    let productos = datosProductos[subcategoria]; // Obtener productos de la subcategoría del JSON
+    let productos = datosProductos[subcategoria];
 
     productos.forEach(producto => {
       $('.product-list').append(`
@@ -59,7 +55,6 @@ $(document).ready(() => {
     });
   }
 
-  // Evento para incrementar y decrementar cantidad
   $(document).on('click', '.incrementar', function() {
     let id = $(this).data('id');
     actualizarCantidad(id, 1);
@@ -112,7 +107,6 @@ $(document).ready(() => {
     });
   }
 
-  // Enviar comanda
   $('#enviarComanda').click(() => {
     $('#mensaje-confirmacion').fadeIn().delay(2000).fadeOut();
     productosSeleccionados = [];
